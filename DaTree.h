@@ -29,7 +29,7 @@ public:
     void PutItem(T val);
 
     //RemoveItem
-    void RemoveItem(T info);
+    void RemoveItem(T val);
 
     //Return Number of Node in the structure
     int GetSize();
@@ -40,12 +40,8 @@ public:
     //Check-Healthy-and-Balance Function
     bool Check_Balancing();
 
-    //Depth First Search
-    bool DFS(T* value);
-
-    //Breath First Search
-    bool BFS(T* value);
-
+    //Contains Function
+    bool Contains(T val);
     // These are used by the iterator
     void ResetIterator(Order traverseOrder);    // Initializes the Iterator
     T GetNextItem();

@@ -64,8 +64,21 @@ void DaTree<T>::PutItem(T val) {
 }
 
 template<class T>
-void DaTree<T>::RemoveItem(T info) {
-
+void DaTree<T>::RemoveItem(T val) {
+    TreeNode* curr =root;
+    while(curr!= nullptr){
+        if(val == curr->value){
+            cout<<"Found: "<<curr->value<<" ... attempt to delete ! \n";
+            DeleteNode(curr);
+            cout<<"Success\n";
+            numNodes--;
+            return;
+        }else if(val < curr->value){
+            curr=curr->left;
+        }else{
+            curr=curr->right;
+        }
+    }
 }
 
 template<class T>
@@ -80,16 +93,6 @@ void DaTree<T>::Self_Balancing() {
 
 template<class T>
 bool DaTree<T>::Check_Balancing() {
-    return false;
-}
-
-template<class T>
-bool DaTree<T>::DFS(T *value) {
-    return false;
-}
-
-template<class T>
-bool DaTree<T>::BFS(T *value) {
     return false;
 }
 
@@ -113,22 +116,52 @@ T DaTree<T>::GetNextItem() {
 
 template<class T>
 void DaTree<T>::DestroyTree(DaTree::TreeNode *node) {
-
+    if(node== nullptr){
+        return;
+    }
+    DestroyTree(node->left);
+    DestroyTree(node->right);
+    delete node;
 }
 
 template<class T>
 void DaTree<T>::RemoveHelper(DaTree::TreeNode *&subtree, T value) {
-
+    if(value==subtree->value){
+        DeleteNode(subtree);
+    }else if(value<subtree->value){
+        subtree=subtree->left;
+    }else{
+        subtree=subtree->right;
+    }
 }
 
 template<class T>
 void DaTree<T>::DeleteNode(DaTree::TreeNode *&subtree) {
-
+    T item;
+    TreeNode* tempPtr;
+    tempPtr=subtree;
+    if(subtree->right== nullptr&&subtree->left==nullptr){
+        delete tempPtr;
+        subtree= nullptr;
+    }else if(subtree->left ==nullptr){
+        subtree=subtree->right;
+        delete tempPtr;
+    }else if(subtree->right== nullptr){
+        subtree=subtree->right;
+        delete tempPtr;
+    }else{
+        GetPredecessor(subtree->left,item);
+        subtree->value=item;
+        RemoveHelper(subtree->left,item);
+    }
 }
 
 template<class T>
 void DaTree<T>::GetPredecessor(DaTree::TreeNode *curr, T &value) {
-
+    while(curr->right!= nullptr){
+        curr=curr->right;
+    }
+    value=curr->value;
 }
 
 template<class T>
@@ -172,4 +205,18 @@ void DaTree<T>::PlaceInOrder(DaTree::TreeNode *node) {
     PlacePreOrder(node->left);
     printQueue.push(node->value);
     PlacePreOrder(node->right);
+}
+
+template<typename T>
+bool DaTree<T>::Contains(T val) {
+    TreeNode* curr =root;
+    while(curr!= nullptr){
+        if(val==curr->value){
+            return true;
+        }else if(val<curr->value){
+            curr=curr->left;
+        }else{
+            curr=curr->right;
+        }
+    }
 };

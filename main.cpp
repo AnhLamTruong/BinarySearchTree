@@ -19,6 +19,15 @@ int main() {
         cout<<tree->GetNextItem()<<'\t';
     }
     cout<<endl;
+
+    tree->RemoveItem(10);
+
+    tree->ResetIterator(IN_ORDER);
+    for(int i=0; i<tree->GetSize(); i++){
+        cout<<tree->GetNextItem()<<'\t';
+    }
+
+    cout<<endl;
     delete tree;
     return 0;
 }
