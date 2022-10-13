@@ -14,12 +14,7 @@ DaTree<T>::~DaTree() {
 
 }
 
-template<class T>
-DaTree<T>& DaTree<T>::operator=(const DaTree &otherTree) {
-    CopyHelper(root, otherTree.root);
-    numNodes=otherTree.numNodes;
-    return *this;
-}
+
 
 template<class T>
 void DaTree<T>::PutItem(T val) {
@@ -162,6 +157,13 @@ void DaTree<T>::GetPredecessor(DaTree::TreeNode *curr, T &value) {
         curr=curr->right;
     }
     value=curr->value;
+}
+
+template<class T>
+DaTree<T>& DaTree<T>::operator=(const DaTree &otherTree) {
+    CopyHelper(root, otherTree.root);
+    numNodes=otherTree.numNodes;
+    return *this;
 }
 
 template<class T>
